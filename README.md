@@ -125,7 +125,7 @@ Donde:
 
 + K: Desplazamineto
 
-+ r_{x,y}: similitud cuanto se dezplasa y[n] en K
++ r: similitud cuanto se dezplasa y[n] en K
 
 Con las señales  x1[nTs]=cos⁡(2π100nTs)     para 0 ≤n< 9,   x2[nTs]=sin⁡(2π100nTs)     para 0 ≤n<  9 para Ts=1.25ms  
 Se encuentra la correlación cruzada entre ambas señales con su respectiva representación gráfica.
