@@ -15,7 +15,20 @@ pandas: Manejo de datos en forma de tablas (aunque aquí solo se importa, no se 
 
 Con esto se realiza un diagrama de flujo para cada parte de este laboratorio 
 ## **Parte A**
+**Convolución**
+
+Esta describe como una señal de entrada se transfomra al pasar por un sistema. En procesamiento de señales, se utiliza mas que todo para calculas la respuesta de un sistema lineal en el tiempo cuando conocemos su entrada y su respuesta de impulso. \
+Se puede definir como: 
+<img width="326" height="84" alt="image" src="https://github.com/user-attachments/assets/5b8c9086-0613-457a-bb93-ee05b02d3d8c" /> \ 
+
+Donde: 
+
++ x[n] = señal de entrada
++ h[n] = respuesta al impulso del sistema
++ y[n] = salida del sistema 
+
 En esta parte se encontró la señal resultante y[n] de la convolución del sistema h[n]= {codigo de cada estudiante} y la señal x[n]={cada digito de la cedula}. Así tambien se realizó una representación gráfica y secuencial de la señal encontrada a mano y python.
+
 ### **- Estudiante 1.**
 Representación de la convolución y gráfico secuencial a mano.
 
@@ -272,15 +285,15 @@ print("Desviación estándar:", np.std(senal))
 print("Máximo:", np.max(senal))
 print("Mínimo:", np.min(senal))
 ```
-+Media: -0.14938
++ Media: -0.14938
 
-+Mediana: -0.0791
++ Mediana: -0.0791
 
-+Desviación estándar: 0.3927
++ Desviación estándar: 0.3927
 
-+Máximo: 1.4549
++ Máximo: 1.4549
 
-+Mínimo: -1.53142
++ Mínimo: -1.53142
 
 La señal biologica adquirida en el laboratorio por medio del generador de señales, esta se puede clasificar como aleatoria, aperiodica y digital, ya que proviene de un "fenomeno" que no es completamente predecible a futuro, no presenta una repeticion exacta en el timepo y podemos decir que es digital, pues originalmente es analogica al ser capturada por el DAQ y procesada por Python se convierte en una señal digital representada por valores discretos.
 
