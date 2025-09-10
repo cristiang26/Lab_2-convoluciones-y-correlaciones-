@@ -179,6 +179,8 @@ En esta parte se analizó una señal muestreada a 2000 Hz tanto en el dominio de
 **Diagrama de flujo parte C**
 <img width="551" height="768" alt="image" src="https://github.com/user-attachments/assets/05d711b7-0aa0-47a0-8d1f-c11b61a55cc4" />
 
+Por medio del generador de señales se logro crear una señal de electrooculometria a una frecuancia de 1000Hz para poder tomar todos los valores requeridos para este laboratorio, por medio del DAQ y un codigo suministrado por la docente se logro capturar y descargar correctamente la señal que generamos anteriormente. 
+
 ```python
 fN = 800
 D = 5
@@ -196,7 +198,26 @@ plt.show()
 ```
 <img width="768" height="414" alt="image" src="https://github.com/user-attachments/assets/62b81b90-9be3-433a-8c98-9bfffe4abc52" />
 
+**Estadisticos en el dominio del timepo**
+Se caracterizo la señal por los diferentes estadisticos en el tiempo, ya vendria siendo la media, mediana, deviacion estandar, maximo y minimo de la señal que capturamos anteriormente.
+```python
+# Estadísticos en tiempo
+print("Media:", np.mean(senal))
+print("Mediana:", np.median(senal))
+print("Desviación estándar:", np.std(senal))
+print("Máximo:", np.max(senal))
+print("Mínimo:", np.min(senal))
+```
+Media: -0.14938
+Mediana: -0.0791
+Desviación estándar: 0.3927
+Máximo: 1.4549
+Mínimo: -1.53142
+
+La señal biologica adquirida en el laboratorio por medio del generador de señales, esta se puede clasificar como aleatoria, aperiodica y digital, ya que proviene de un "fenomeno" que no es completamente predecible a futuro, no presenta una repeticion exacta en el timepo y podemos decir que es digital, pues originalmente es analogica al ser capturada por el DAQ y procesada por Python se convierte en una señal digital representada por valores discretos.
+
 **Transformada de fourier**
+
 ```python
 N = len(senal)
 fft_v = np.fft.fft(senal)
@@ -228,6 +249,7 @@ plt.grid(True)
 plt.show()
 ```
 <img width="785" height="352" alt="image" src="https://github.com/user-attachments/assets/c099dd22-8069-422e-ad9e-ff3eba89ce54" />
+**Estadisticos en el dominio de la frecuencia**
 
 **Frecuencia media**
 ```python
