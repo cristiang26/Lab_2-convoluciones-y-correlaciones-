@@ -179,11 +179,74 @@ En esta parte se analizó una señal muestreada a 2000 Hz tanto en el dominio de
 **Diagrama de flujo parte C**
 <img width="551" height="768" alt="image" src="https://github.com/user-attachments/assets/05d711b7-0aa0-47a0-8d1f-c11b61a55cc4" />
 
-Por medio del generador de señales se logro crear una señal de electrooculometria a una frecuancia de 1000Hz para poder tomar todos los valores requeridos para este laboratorio, por medio del DAQ y un codigo suministrado por la docente se logro capturar y descargar correctamente la señal que generamos anteriormente. 
+Por medio del generador de señales se logro crear una señal de electrooculometria a una frecuancia de 1000Hz para poder tomar todos los valores requeridos para este laboratorio, por medio del DAQ y un codigo suministrado por la docente se logro capturar y descargar correctamente la señal que generamos anteriormente.
+
+El siguiente codigo fue el suministrado por la docente, este codigo es con el fin de poder capturar la señal que creamos con el generador de señales, y por medio del DAQ se logro capturar la señal requerida para su posterior procesamiento y analisis, para asi poder lograr con los objetivos del laboratorio.
+
+```python
+# -*- coding: utf-8 -*-
+"""
+Script para captura de señales usando la DAQ.
+Este script permite configurar la frecuencia de muestreo y duración de la señal;
+realiza la captura internamente y posteriormente grafica la señal completa. 
+Es una captura eficiente y exacta en el tiempo. Es útil si quiero grabar la señal
+para procesarla posteriormente usando otro script, lenguaje, entorno, etc.
+
+Se requiere instalar: 
+Librería de uso de la DAQ
+!python -m pip install nidaqmx     
+
+Driver NI DAQ mx
+!python -m nidaqmx installdriver   
+
+Created on Thu Aug 21 08:36:05 2025
+@author: Carolina Corredor
+"""
+
+# Librerías: 
+import nidaqmx                     # Librería daq. Requiere haber instalado el driver nidaqmx
+from nidaqmx.constants import AcquisitionType # Para definir que adquiera datos de manera consecutiva
+import matplotlib.pyplot as plt    # Librería para graficar
+import numpy as np                 # Librería de funciones matemáticas
+
+#%% Adquisición de la señal por tiempo definido
+
+fs = 2000           # Frecuencia de muestreo en Hz. Recordar cumplir el criterio de Nyquist
+duracion = 5      # Periodo por el cual desea medir en segundos
+senal = []          # Vector vacío en el que se guardará la señal
+dispositivo = 'Dev1/ai0' # Nombre del dispositivo/canal (se puede cambiar el nombre en NI max)
+
+total_muestras = int(fs * duracion)
+
+with nidaqmx.Task() as task:
+    # Configuración del canal
+    task.ai_channels.add_ai_voltage_chan(dispositivo)
+    # Configuración del reloj de muestreo
+    task.timing.cfg_samp_clk_timing(
+        fs,
+        sample_mode=AcquisitionType.FINITE,   # Adquisición finita
+        samps_per_chan=total_muestras        # Total de muestras que quiero
+    )
+
+    # Lectura de todas las muestras de una vez
+    senal = task.read(number_of_samples_per_channel=total_muestras)
+
+t = np.arange(len(senal))/fs # Crea el vector de tiempo 
+plt.plot(t,senal)
+plt.axis([0,duracion,-10,10])
+plt.grid()
+plt.ylim(-2.5 , 2.5)
+plt.xlim(0 , 0.2)
+plt.title(f"fs={fs}Hz, duración={duracion}s, muestras={len(senal)}")
+plt.show()
+
+np.savetxt(f"señal_fs{fs}_t{duracion}_2.txt", senal)
+```
+
+Ya con la señal descargada en un archivo .txt se logro graficar por medio de codigo Python, y asi con esto poder seguir con los siguientes incisos requeridos.
 
 ```python
 fN = 800
-D = 5
 senal = np.loadtxt("/content/drive/MyDrive/señal_fs2000_t5.txt")
 
 
@@ -199,6 +262,7 @@ plt.show()
 <img width="768" height="414" alt="image" src="https://github.com/user-attachments/assets/62b81b90-9be3-433a-8c98-9bfffe4abc52" />
 
 **Estadisticos en el dominio del timepo**
+
 Se caracterizo la señal por los diferentes estadisticos en el tiempo, ya vendria siendo la media, mediana, deviacion estandar, maximo y minimo de la señal que capturamos anteriormente.
 ```python
 # Estadísticos en tiempo
@@ -208,11 +272,15 @@ print("Desviación estándar:", np.std(senal))
 print("Máximo:", np.max(senal))
 print("Mínimo:", np.min(senal))
 ```
-Media: -0.14938
-Mediana: -0.0791
-Desviación estándar: 0.3927
-Máximo: 1.4549
-Mínimo: -1.53142
++Media: -0.14938
+
++Mediana: -0.0791
+
++Desviación estándar: 0.3927
+
++Máximo: 1.4549
+
++Mínimo: -1.53142
 
 La señal biologica adquirida en el laboratorio por medio del generador de señales, esta se puede clasificar como aleatoria, aperiodica y digital, ya que proviene de un "fenomeno" que no es completamente predecible a futuro, no presenta una repeticion exacta en el timepo y podemos decir que es digital, pues originalmente es analogica al ser capturada por el DAQ y procesada por Python se convierte en una señal digital representada por valores discretos.
 
