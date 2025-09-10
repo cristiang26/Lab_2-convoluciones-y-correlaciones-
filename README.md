@@ -19,7 +19,7 @@ En esta parte se encontró la señal resultante y[n] de la convolución del sist
 ### **- Estudiante 1.**
 Representación de la convolución y gráfico secuencial a mano.
 
-<img width="620" height="621" alt="image" src="https://github.com/user-attachments/assets/67bb3463-d761-4de4-ba77-90bf6c0ed1fc" />
+<img width="574" height="566" alt="image" src="https://github.com/user-attachments/assets/18fe023d-d1ee-4c26-9891-b8f9224fad0f" />
 
 ```python
 h = np.array([5,6,0,0,8,4,2], dtype=int)
@@ -52,6 +52,8 @@ Figura . Representación de la señal resultante en google colab
 
 ### **- Estudiante 2.**
 Representación de la convolución y gráfico secuencial a mano.
+
+<img width="468" height="556" alt="image" src="https://github.com/user-attachments/assets/1cd81ca2-04a7-4aa4-8838-52ef04dac61b" />
 
 
 ```python
