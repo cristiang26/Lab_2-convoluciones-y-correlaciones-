@@ -137,7 +137,8 @@ Se encuentra la correlación cruzada entre ambas señales con su respectiva repr
 
 **Diagrama de flujo parte B**
 
-<img width="317" height="825" alt="image" src="https://github.com/user-attachments/assets/52c3558d-f65d-4601-a404-d82efae5c7d4" />
+<img width="314" height="832" alt="image" src="https://github.com/user-attachments/assets/46d12bd5-b0c0-481f-8da1-ac5d5249646c" />
+
 
 ```python
 Ts = 1.25E-3
