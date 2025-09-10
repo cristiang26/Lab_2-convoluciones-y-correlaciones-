@@ -18,6 +18,7 @@ Con esto se realiza un diagrama de flujo para cada parte de este laboratorio
 **Convolución**
 
 Esta describe como una señal de entrada se transfomra al pasar por un sistema. En procesamiento de señales, se utiliza mas que todo para calculas la respuesta de un sistema lineal en el tiempo cuando conocemos su entrada y su respuesta de impulso.
+
 Se puede definir como: 
 
 <img width="326" height="84" alt="image" src="https://github.com/user-attachments/assets/5b8c9086-0613-457a-bb93-ee05b02d3d8c" /> 
