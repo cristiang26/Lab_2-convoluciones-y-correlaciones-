@@ -172,7 +172,98 @@ Figura . Representación de la secuencia resultante en google colab
 
 ## **Parte C**
 
+En esta parte se analizó una señal muestreada a 2000 Hz tanto en el dominio del tiempo como en el de la frecuencia. Primero, se graficó la señal en función del tiempo y se calcularon sus principales estadísticos descriptivos (media, mediana, desviación estándar, valor máximo y mínimo), lo que permite caracterizar su comportamiento general y amplitud. Luego, se aplicó la Transformada Rápida de Fourier (FFT), que es un algoritmo eficiente para calcular la Transformada Discreta de Fourier y permite descomponer la señal en sus componentes de frecuencia, mostrando qué frecuencias están presentes y con qué magnitud. A continuación, se estimó la densidad espectral de potencia, que describe cómo se distribuye la energía de la señal a lo largo del espectro de frecuencias. Para calcularla se utilizó el método de Welch, el cual divide la señal en segmentos superpuestos, les aplica una ventana de suavizado y promedia los periodogramas resultantes; de esta manera se obtiene una estimación más robusta y menos ruidosa de la energía espectral, lo que facilita la interpretación y el análisis de las frecuencias dominantes en la señal.
+
+
 
 **Diagrama de flujo parte C**
 <img width="551" height="768" alt="image" src="https://github.com/user-attachments/assets/05d711b7-0aa0-47a0-8d1f-c11b61a55cc4" />
+
+```python
+fN = 800
+D = 5
+senal = np.loadtxt("/content/drive/MyDrive/señal_fs2000_t5.txt")
+
+
+t = np.arange(len(senal)) / fN
+plt.figure(figsize=(10,5))
+plt.plot(t, senal)
+plt.xlabel("Tiempo (s)")
+plt.ylabel(" Voltage (mV)")
+plt.title("Señal capturada")
+plt.grid(True)
+plt.show()
+```
+<img width="768" height="414" alt="image" src="https://github.com/user-attachments/assets/62b81b90-9be3-433a-8c98-9bfffe4abc52" />
+
+**Transformada de fourier**
+```python
+N = len(senal)
+fft_v = np.fft.fft(senal)
+fft_Fre = np.fft.fftfreq(N, 1/fN)
+
+fft_magnitud = np.abs(fft_v[:N//2])
+frecuencias = fft_Fre[:N//2]
+
+espectro = fft_magnitud / np.sum(fft_magnitud)
+
+plt.figure(figsize=(10,5))
+plt.plot(fft_Fre, np.abs(fft_v))
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("Amplitud")
+plt.title("Transformada de Fourier")
+```
+<img width="802" height="402" alt="image" src="https://github.com/user-attachments/assets/e2093942-603b-481c-b5cf-d91af709e444" />
+
+**Densidad espectral**
+```python
+# Densidad espectral de potencia (Welch)
+pxx, f_welch = welch(senal, fs, nperseg=min(1024, N))
+plt.figure(figsize=(10,4))
+plt.semilogy(f_welch, pxx)
+plt.title("Densidad espectral de potencia")
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("PSD")
+plt.grid(True)
+plt.show()
+```
+<img width="785" height="352" alt="image" src="https://github.com/user-attachments/assets/c099dd22-8069-422e-ad9e-ff3eba89ce54" />
+
+**Frecuencia media**
+```python
+f_media = np.sum(frecuencias * espectro)
+print(f"Frecuencia media: {f_media} Hz")
+```
+Frecunecia media  : 102.2935 Hz
+
+**Frecuancia mediana**
+```python
+f_acumulada = np.cumsum(espectro)
+f_mediana = frecuencias[np.argmin(np.abs(f_acumulada - 0.5))]
+print(f"Frecuencia mediana: {f_mediana} Hz")
+```
+Frecuencia mediana: 55.92 Hz
+
+**Desviacion estandar**
+```python
+f_varianza = np.sum(((frecuencias - f_media)**2) * espectro)
+f_desviacion_estandar = np.sqrt(f_varianza)
+print(f"Desviación estándar en frecuencia: {f_desviacion_estandar} Hz")
+```
+Desviacion estandar en frecuancia: 110.9863 Hz
+
+**Histogramas de frecuancias**
+```python
+plt.figure(figsize=(8,5))
+plt.hist(frecuencias, bins=30, weights=espectro, color='blue')
+plt.title("Histograma de frecuencias")
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("Densidad de probabilidad")
+plt.grid(True)
+plt.show()
+```
+<img width="772" height="513" alt="image" src="https://github.com/user-attachments/assets/311db35a-6768-468d-aaf5-fed35cf6a82f" />
+
+
+
 
