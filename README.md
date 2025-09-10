@@ -125,11 +125,6 @@ Figura . Representación de la señal resultante en google colab
 La correlación cruzada permite medir la similitud entre dos señales en función de un desplazamiento tempora, esta indicara cuanto se parecen las señales que tomamos, su resultado es util para poder indentificar patrones comunes, poder detectar coincidencias entre señales en procesamiento digital, para señales discretas, la correlacion cruzada esta definida por: \
 <img width="317" height="92" alt="image" src="https://github.com/user-attachments/assets/645c4f67-b06b-4726-a23d-60c7e60185e3" /> 
 
-**Diagrama de flujo parte B**
-
-<img width="317" height="825" alt="image" src="https://github.com/user-attachments/assets/52c3558d-f65d-4601-a404-d82efae5c7d4" />
-
-
 Donde: 
 + x[n] y Y[n]: las dos señales tomadas.
 
@@ -139,6 +134,10 @@ Donde:
 
 Con las señales  x1[nTs]=cos⁡(2π100nTs)     para 0 ≤n< 9,   x2[nTs]=sin⁡(2π100nTs)     para 0 ≤n<  9 para Ts=1.25ms  
 Se encuentra la correlación cruzada entre ambas señales con su respectiva representación gráfica.
+
+**Diagrama de flujo parte B**
+
+<img width="317" height="825" alt="image" src="https://github.com/user-attachments/assets/52c3558d-f65d-4601-a404-d82efae5c7d4" />
 
 ```python
 Ts = 1.25E-3
