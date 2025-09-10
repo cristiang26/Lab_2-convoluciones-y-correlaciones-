@@ -103,6 +103,7 @@ Figura . Representación de la señal resultante en google colab
 
 ### **- Estudiante 3.** 
 Representación de la convolución y gráfico secuencial a mano.
+![IMG-20250910-WA0017](https://github.com/user-attachments/assets/d9d6eaa1-5092-435f-831e-d3d8ded5a716)
 
 
 ```python
